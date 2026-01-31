@@ -15,10 +15,7 @@ function BackgroundScene() {
 
     useFrame((state, delta) => {
         if (!groupRef.current) return;
-        // Rotate the entire group slowly for a "moving universe" feel
-        // Y-axis rotation makes them drift horizontally
-        // Slight X-axis rotation adds some dynamic tilt
-        groupRef.current.rotation.y += delta * 0.05; // Adjust speed here (was ~0.05 for "moving")
+        groupRef.current.rotation.y += delta * 0.05;
         groupRef.current.rotation.x += delta * 0.01;
     });
 
@@ -26,7 +23,6 @@ function BackgroundScene() {
         setMounted(true);
     }, []);
 
-    // Default to dark theme colors if not mounted or theme is undefined
     const isDark = !mounted || theme === "dark" || theme === "system";
 
     if (!showParticles) return null;

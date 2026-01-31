@@ -12,7 +12,7 @@ const SettingsContext = createContext<SettingsContextType | undefined>(undefined
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
     const [showParticles, setShowParticles] = useState(true);
 
-    // Optional: Persist to localStorage
+
     useEffect(() => {
         const stored = localStorage.getItem("showParticles");
         if (stored !== null) {

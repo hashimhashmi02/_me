@@ -13,7 +13,7 @@ interface FloatingShapeProps {
     type: string;
 }
 
-// Geometry factory function (outside component for stability)
+
 function createGeometry(type: string): THREE.BufferGeometry {
     switch (type) {
         case "sphere":

@@ -42,10 +42,8 @@ export function Dock() {
                 );
             })}
 
-            {/* Separator */}
             <div className="w-px h-8 bg-white/10 mx-1" />
 
-            {/* Theme Toggle */}
             <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className={cn(
@@ -62,7 +60,6 @@ export function Dock() {
                     <Moon className="absolute inset-0 w-full h-full rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                 </div>
 
-                {/* Tooltip */}
                 <span
                     className={cn(
                         "absolute -top-10 left-1/2 -translate-x-1/2",
@@ -79,7 +76,6 @@ export function Dock() {
 
             </button>
 
-            {/* Particle Toggle */}
             <button
                 onClick={() => setShowParticles(!showParticles)}
                 className={cn(
@@ -92,12 +88,11 @@ export function Dock() {
                 )}
             >
                 {showParticles ? (
-                    <Eye className="w-5 h-5 transition-all" />
+                    <Eye className="w-5 h-5 transition-all text-green-400" />
                 ) : (
                     <EyeOff className="w-5 h-5 transition-all text-red-400" />
                 )}
 
-                {/* Tooltip */}
                 <span
                     className={cn(
                         "absolute -top-10 left-1/2 -translate-x-1/2",
@@ -139,7 +134,6 @@ function DockItem({ href, name, children }: DockItemProps) {
         >
             {children}
 
-            {/* Tooltip */}
             <span
                 className={cn(
                     "absolute -top-10 left-1/2 -translate-x-1/2",
