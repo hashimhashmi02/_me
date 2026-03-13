@@ -77,8 +77,16 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                     {/* Screen */}
                     <div className="relative rounded-t-lg bg-zinc-800 border border-zinc-700 overflow-hidden shadow-2xl">
                         {/* Screen Content - Gradient placeholder */}
-                        <div className="aspect-[16/10] bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 flex items-center justify-center">
-                            {/* Project preview placeholder */}
+                        <div className="aspect-[16/10] bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 flex items-center justify-center relative overflow-hidden group/image">
+                            {/* Actual Project Image */}
+                            <Image
+                                src={project.image}
+                                alt={project.title}
+                                fill
+                                className="object-cover z-10 transition-transform duration-500 group-hover/image:scale-105"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />
+                            {/* Project preview placeholder (fallback background) */}
                             <div className="w-full h-full bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center">
                                 <div className="text-center p-4">
                                     <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-lg font-bold">
@@ -88,7 +96,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                             </div>
                         </div>
                         {/* Screen bezel bottom */}
-                        <div className="h-2 bg-zinc-700 rounded-b-sm" />
+                        <div className="h-2 bg-zinc-700 rounded-b-sm relative z-20" />
                     </div>
 
                     {/* Laptop Base */}
