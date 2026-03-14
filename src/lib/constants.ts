@@ -76,7 +76,7 @@ export const PROJECTS = [
     image: "/projects/bug.png",
     tech: ["Next.js", "React", "Convex", "Clerk"],
     github: "https://github.com/hashimhashmi02/bug",
-    live:"https://bug-tau.vercel.app/",
+    live:"https://bug-opal.vercel.app/",
     featured: false,
   },
 ] as const;
