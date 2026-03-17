@@ -6,10 +6,9 @@ export const PERSONAL_INFO = {
   bio: "I'm a passionate developer who loves creating beautiful, performant web applications. I specialize in React, Next.js, and modern web technologies.",
   location: "India",
   status: "Open to work",
-  email: "hashim@example.com",
+  email: "hashimhashmi86@gmail.com",
 } as const;
 
-// Social Links
 export const SOCIAL_LINKS = [
     {
         name: "GitHub",
@@ -81,7 +80,7 @@ export const PROJECTS = [
   },
 ] as const;
 
-// Tech Stack
+
 export const TECH_STACK = [
   { name: "React", icon: "⚛️" },
   { name: "Next.js", icon: "▲" },
@@ -99,7 +98,7 @@ export const TECH_STACK = [
   { name: "Framer Motion", icon: "🎬" },
 ] as const;
 
-// 3D Scene Configuration
+
 export const SCENE_CONFIG = {
   cameraPosition: [0, 0, 8] as [number, number, number],
   ambientLightIntensity: 0.5,
