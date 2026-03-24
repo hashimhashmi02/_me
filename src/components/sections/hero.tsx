@@ -6,7 +6,7 @@ import { PERSONAL_INFO, SOCIAL_LINKS } from "@/lib/constants";
 import { Github, Twitter, Linkedin, ChevronDown, ArrowRight, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Dynamic import for 3D canvas to avoid SSR issues
+
 const HeroCanvas = dynamic(
     () => import("@/components/canvas/hero-canvas").then((mod) => mod.HeroCanvas),
     { ssr: false }
@@ -24,24 +24,24 @@ export function Hero() {
             id="home"
             className="relative min-h-screen flex items-center justify-center overflow-hidden"
         >
-            {/* 3D Canvas Background */}
+
             <HeroCanvas />
 
-            {/* Content Overlay */}
+
             <div className="relative z-10 px-6 max-w-4xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
-                    {/* Profile Photo with Status Badge */}
+
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.1 }}
                         className="flex items-center gap-4 mb-8"
                     >
-                        {/* Avatar */}
+
                         <div className="relative">
                             <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 border border-white/10 overflow-hidden flex items-center justify-center">
                                 <img
@@ -52,11 +52,11 @@ export function Hero() {
                                     className="w-full h-full object-cover"
                                 />
                             </div>
-                            {/* Online indicator */}
+
                             <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-background" />
                         </div>
 
-                        {/* Status Badge */}
+
                         <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/30">
                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                             <span className="text-sm text-green-400 font-medium uppercase tracking-wide">
@@ -115,14 +115,12 @@ export function Hero() {
                         </div>
                     </motion.div>
 
-                    {/* CTA Buttons + Social Links */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
                         className="flex flex-wrap items-center gap-4"
                     >
-                        {/* Get in touch button */}
                         <a
                             href="#contact"
                             className={cn(
@@ -135,7 +133,6 @@ export function Hero() {
                             <ArrowRight className="w-4 h-4" />
                         </a>
 
-                        {/* Resume button */}
                         <a
                             href="/resume.pdf"
                             target="_blank"
@@ -148,8 +145,7 @@ export function Hero() {
                             Resume
                             <FileText className="w-4 h-4" />
                         </a>
-
-                        {/* Social Icons */}
+                        =
                         <div className="flex items-center gap-2 ml-2">
                             {SOCIAL_LINKS.map((link) => {
                                 const Icon = socialIconMap[link.icon as keyof typeof socialIconMap];

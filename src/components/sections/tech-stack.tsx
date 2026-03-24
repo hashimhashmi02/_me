@@ -5,7 +5,6 @@ import { Marquee, MarqueeItem } from "@/components/ui/marquee";
 import { TECH_STACK } from "@/lib/constants";
 
 export function TechStack() {
-    // Split tech stack into two rows
     const firstRow = TECH_STACK.slice(0, Math.ceil(TECH_STACK.length / 2));
     const secondRow = TECH_STACK.slice(Math.ceil(TECH_STACK.length / 2));
 
@@ -18,7 +17,6 @@ export function TechStack() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
                 <div className="max-w-6xl mx-auto px-6 mb-12">
-                    {/* Section Header */}
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -34,7 +32,6 @@ export function TechStack() {
                     </motion.div>
                 </div>
 
-                {/* Marquee Rows */}
                 <div className="space-y-6">
                     <Marquee speed="normal">
                         {firstRow.map((tech) => (
