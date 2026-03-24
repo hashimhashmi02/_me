@@ -66,12 +66,11 @@ export function GitHubActivity() {
 
                 setContributions(weeks);
 
-                // Calculate total for the displayed period
                 const total = relevantData.reduce((acc, curr) => acc + curr.count, 0);
                 setTotalContributionsLastYear(total);
             } catch (error) {
                 console.error("Failed to fetch GitHub contributions", error);
-                // Fallback or empty state could be handled here
+
             } finally {
                 setLoading(false);
             }
@@ -89,7 +88,7 @@ export function GitHubActivity() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="max-w-6xl mx-auto"
             >
-                {/* Section Header */}
+
                 <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -106,7 +105,6 @@ export function GitHubActivity() {
                     </h2>
                 </motion.div>
 
-                {/* Contribution Graph Card */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -124,9 +122,9 @@ export function GitHubActivity() {
                         </div>
                     ) : (
                         <>
-                            {/* Months Header */}
+
                             <div className="flex mb-2 text-xs text-muted-foreground">
-                                {/* Simplified months display - just spreading them out */}
+
                                 <div className="flex-1 flex justify-between px-1">
                                     {months.map((month, i) => (
                                         <span key={i} className="w-8 text-center">{month}</span>
@@ -134,7 +132,6 @@ export function GitHubActivity() {
                                 </div>
                             </div>
 
-                            {/* Contribution Grid */}
                             <div className="flex gap-[3px] overflow-x-auto pb-4 scrollbar-hide">
                                 {contributions.map((week, weekIndex) => (
                                     <div key={weekIndex} className="flex flex-col gap-[3px]">
@@ -157,11 +154,9 @@ export function GitHubActivity() {
                                 ))}
                             </div>
 
-                            {/* Footer */}
                             <div className="flex flex-wrap items-center justify-between mt-4 text-sm text-muted-foreground gap-4">
                                 <span>{totalContributionsLastYear} contributions in the last year</span>
 
-                                {/* Legend */}
                                 <div className="flex items-center gap-2">
                                     <span>Less</span>
                                     <div className="flex gap-[2px]">
@@ -182,8 +177,6 @@ export function GitHubActivity() {
                     )}
                 </motion.div>
 
-                {/* GitHub Stats Cards (Static/Placeholder or fetched if API provides) */}
-                {/* API response only gives contributions. We'll keep these static or update manually for now as requested 'fetch activity' usually implies the graph. */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
