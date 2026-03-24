@@ -46,8 +46,7 @@ export function GitHubActivity() {
                 const response = await fetch("https://github-contributions-api.jogruber.de/v4/hashimhashmi02?y=last");
                 const data: ApiResponse = await response.json();
 
-                // Take the last 364 days (52 weeks * 7 days)
-                // ensure we have enough data, otherwise pad
+
                 const relevantData = data.contributions.slice(-364);
 
                 const weeks: number[][] = [];

@@ -16,7 +16,7 @@ const PROJECT_SHAPES: ShapeConfig[] = [
 export function Projects() {
     return (
         <section id="projects" className="py-24 px-6 relative overflow-hidden">
-            {/* 3D Background */}
+
             <SectionCanvas
                 shapes={PROJECT_SHAPES}
                 lightColor="#ec4899"
@@ -24,7 +24,7 @@ export function Projects() {
             />
 
             <div className="max-w-6xl mx-auto relative z-10">
-                {/* Section Header */}
+
                 <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -41,7 +41,6 @@ export function Projects() {
                     </h2>
                 </motion.div>
 
-                {/* Projects Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {PROJECTS.map((project, index) => (
                         <ProjectCard key={project.id} project={project} index={index} />
