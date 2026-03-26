@@ -14,24 +14,24 @@ const socialIconMap = {
 };
 
 const CONTACT_SHAPES: ShapeConfig[] = [
-    { type: "torus", position: [-8, 2, -2], color: "#22c55e", scale: 0.8 }, // Green torus
-    { type: "sphere", position: [8, -3, -4], color: "#8b5cf6", scale: 0.6 }, // Purple sphere
-    { type: "icosahedron", position: [-6, -4, -2], color: "#6366f1", scale: 0.5 }, // Indigo icosa
-    { type: "octahedron", position: [8, 4, -5], color: "#3b82f6", scale: 0.7 }, // Blue octa
+    { type: "torus", position: [-8, 2, -2], color: "#22c55e", scale: 0.8 },
+    { type: "sphere", position: [8, -3, -4], color: "#8b5cf6", scale: 0.6 },
+    { type: "icosahedron", position: [-6, -4, -2], color: "#6366f1", scale: 0.5 },
+    { type: "octahedron", position: [8, 4, -5], color: "#3b82f6", scale: 0.7 },
 ];
 
 export function Contact() {
     const [emailCopied, setEmailCopied] = useState(false);
 
     const copyEmail = () => {
-        navigator.clipboard.writeText("hashim@example.com"); // This email should be updated to the actual email
+        navigator.clipboard.writeText("hashim@example.com");
         setEmailCopied(true);
         setTimeout(() => setEmailCopied(false), 2000);
     };
 
     return (
         <section id="contact" className="py-24 px-6 relative pb-32 overflow-hidden">
-            {/* 3D Background */}
+
             <SectionCanvas
                 shapes={CONTACT_SHAPES}
                 lightColor="#22c55e"
@@ -45,7 +45,7 @@ export function Contact() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="max-w-5xl mx-auto"
             >
-                {/* Section Header */}
+
                 <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -62,7 +62,7 @@ export function Contact() {
                     </h2>
                 </motion.div>
 
-                {/* Main Contact Card */}
+
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -74,20 +74,19 @@ export function Contact() {
                         "text-center"
                     )}
                 >
-                    {/* Headline */}
+
                     <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
                         Let&apos;s build something{" "}
                         <span className="italic-gradient">extraordinary.</span>
                     </h3>
 
-                    {/* Description */}
                     <p className="text-muted-foreground max-w-xl mx-auto mb-8">
                         I&apos;m currently open to new opportunities and interesting projects.
                         Whether you have a question or just want to say hi, I&apos;ll try my best
                         to get back to you!
                     </p>
 
-                    {/* CTA Buttons */}
+
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
                         <motion.a
                             href="mailto:hashim@example.com"
