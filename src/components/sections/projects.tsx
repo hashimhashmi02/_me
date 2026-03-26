@@ -69,15 +69,15 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                 "hover:border-white/10 transition-all duration-300"
             )}
         >
-            {/* Laptop Mockup on Pedestal */}
+
             <div className="relative mb-6">
-                {/* Laptop Frame */}
+
                 <div className="relative mx-auto w-full max-w-[280px] aspect-[16/10]">
-                    {/* Screen */}
+
                     <div className="relative rounded-t-lg bg-zinc-800 border border-zinc-700 overflow-hidden shadow-2xl">
-                        {/* Screen Content - Gradient placeholder */}
+
                         <div className="aspect-[16/10] bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 flex items-center justify-center relative overflow-hidden group/image">
-                            {/* Actual Project Image */}
+
                             <Image
                                 src={project.image}
                                 alt={project.title}
@@ -85,7 +85,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                                 className="object-cover z-10 transition-transform duration-500 group-hover/image:scale-105"
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             />
-                            {/* Project preview placeholder (fallback background) */}
+
                             <div className="w-full h-full bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center">
                                 <div className="text-center p-4">
                                     <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-lg font-bold">
@@ -94,27 +94,27 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                                 </div>
                             </div>
                         </div>
-                        {/* Screen bezel bottom */}
+
                         <div className="h-2 bg-zinc-700 rounded-b-sm relative z-20" />
                     </div>
 
-                    {/* Laptop Base */}
+
                     <div className="relative h-2 bg-gradient-to-b from-zinc-600 to-zinc-700 rounded-b-lg mx-4" />
                     <div className="relative h-1 bg-zinc-800 rounded-b-lg mx-8" />
                 </div>
 
-                {/* Pedestal / Platform */}
+
                 <div className="mt-4 mx-auto w-[200px]">
-                    {/* Top surface */}
+
                     <div className="h-3 bg-gradient-to-b from-zinc-600 to-zinc-700 rounded-t-full" />
-                    {/* Side */}
+
                     <div className="h-8 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900 rounded-b-lg" />
                 </div>
             </div>
 
-            {/* Project Info */}
+
             <div>
-                {/* Title with links */}
+
                 <div className="flex items-center justify-between mb-3">
                     <h3 className="text-xl font-semibold group-hover:text-white transition-colors">
                         {project.title}
@@ -139,12 +139,12 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                     </div>
                 </div>
 
-                {/* Description */}
+
                 <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                     {project.description}
                 </p>
 
-                {/* Tech Stack */}
+
                 <div className="flex flex-wrap gap-2">
                     {project.tech.map((tech) => (
                         <span
@@ -164,7 +164,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
     );
 }
 
-// Helper function for tech badge colors
+
 function getTechColor(tech: string): string {
     const colors: Record<string, string> = {
         "Next.js": "bg-white",
