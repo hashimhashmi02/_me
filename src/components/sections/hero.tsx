@@ -137,7 +137,7 @@ export function Hero() {
 
                         {/* Resume button */}
                         <a
-                            href="/resume.pdf"
+                            href="https://drive.google.com/file/d/1n2eX3EoR6_cY2sHLT92SJmgMpAU8fM5e/view?usp=drive_link"
                             target="_blank"
                             className={cn(
                                 "inline-flex items-center gap-2 px-5 py-2.5 rounded-full",
