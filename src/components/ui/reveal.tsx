@@ -44,19 +44,25 @@ export function Reveal({
   }
 
   if (kind === "mask") {
+    // whileInView must live on the clipping wrapper: the translated inner
+    // element is fully clipped while hidden, so IntersectionObserver never
+    // reports it as visible. The variant label propagates to the child.
     return (
-      <div className={`overflow-hidden ${className ?? ""}`}>
+      <motion.div
+        className={`overflow-hidden ${className ?? ""}`}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-12% 0px" }}
+        custom={delay}
+      >
         <motion.div
           className="will-change-transform"
           variants={variants.mask}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-12% 0px" }}
           custom={delay}
         >
           {children}
         </motion.div>
-      </div>
+      </motion.div>
     );
   }
 
