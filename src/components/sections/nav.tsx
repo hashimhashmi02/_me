@@ -39,7 +39,7 @@ export default function Nav() {
         </a>
 
         <div className="flex items-center gap-1 md:gap-2">
-          <ul className="hidden items-center gap-1 sm:flex">
+          <ul className="flex items-center gap-0 sm:gap-1">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <a
@@ -48,7 +48,7 @@ export default function Nav() {
                     e.preventDefault();
                     scrollToTarget(link.href);
                   }}
-                  className="eyebrow rounded px-3 py-2 text-muted transition-colors hover:text-cyan"
+                  className="eyebrow rounded px-1.5 py-2 text-muted transition-colors hover:text-cyan sm:px-3"
                 >
                   {link.label}
                 </a>

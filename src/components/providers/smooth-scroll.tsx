@@ -49,6 +49,8 @@ export default function SmoothScroll({
       gsap.ticker.remove(raf);
       lenis.destroy();
       lenisInstance = null;
+      // destroy() leaves its root classes behind
+      document.documentElement.classList.remove("lenis", "lenis-smooth");
     };
   }, [ready, reduced]);
 

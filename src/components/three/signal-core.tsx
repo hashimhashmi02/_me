@@ -9,6 +9,17 @@ import { paletteColor } from "./palette";
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
+/** Deterministic PRNG so particle layout is stable across renders. */
+function mulberry32(seed: number) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 const particleVertex = /* glsl */ `
 uniform float uTime;
 uniform float uIntro;
@@ -40,6 +51,28 @@ void main() {
 }
 `;
 
+// Uniform/scratch objects live at module scope: they are mutable per-frame
+// state for the single hero instance, not render-derived values.
+const coreUniforms = {
+  uTime: { value: 0 },
+  uIntro: { value: 0 },
+  uEnergy: { value: 0 },
+  uAmp: { value: 0.27 },
+  uMouse: { value: new THREE.Vector3(99, 99, 0) },
+  uCyan: { value: paletteColor("cyan") },
+  uViolet: { value: paletteColor("violet") },
+  uMagenta: { value: paletteColor("magenta") },
+};
+
+const particleUniforms = {
+  uTime: { value: 0 },
+  uIntro: { value: 0 },
+  uPx: { value: 1 },
+};
+
+const mouseWorld = new THREE.Vector3();
+const ray = new THREE.Vector3();
+
 /** The signature object: shader-displaced icosahedron + orbiting dust. */
 export default function SignalCore({ low }: { low: boolean }) {
   const group = useRef<THREE.Group>(null);
@@ -52,35 +85,13 @@ export default function SignalCore({ low }: { low: boolean }) {
     [low]
   );
 
-  const uniforms = useMemo(
-    () => ({
-      uTime: { value: 0 },
-      uIntro: { value: 0 },
-      uEnergy: { value: 0 },
-      uAmp: { value: 0.27 },
-      uMouse: { value: new THREE.Vector3(99, 99, 0) },
-      uCyan: { value: paletteColor("cyan") },
-      uViolet: { value: paletteColor("violet") },
-      uMagenta: { value: paletteColor("magenta") },
-    }),
-    []
-  );
-
   const geometry = useMemo(
     () => new THREE.IcosahedronGeometry(1.15, low ? 20 : 48),
     [low]
   );
 
-  const particleUniforms = useMemo(
-    () => ({
-      uTime: { value: 0 },
-      uIntro: { value: 0 },
-      uPx: { value: 1 },
-    }),
-    []
-  );
-
   const particleGeometry = useMemo(() => {
+    const rand = mulberry32(low ? 1337 : 424242);
     const count = low ? 550 : 2200;
     const pos = new Float32Array(count * 3);
     const seeds = new Float32Array(count);
@@ -92,16 +103,16 @@ export default function SignalCore({ low }: { low: boolean }) {
     ];
     for (let i = 0; i < count; i++) {
       // spherical shell around the core
-      const u = Math.random() * 2 - 1;
-      const phi = Math.random() * Math.PI * 2;
+      const u = rand() * 2 - 1;
+      const phi = rand() * Math.PI * 2;
       const s = Math.sqrt(1 - u * u);
-      const r = 1.85 + Math.pow(Math.random(), 1.6) * 1.5;
+      const r = 1.85 + Math.pow(rand(), 1.6) * 1.5;
       pos[i * 3] = s * Math.cos(phi) * r;
       pos[i * 3 + 1] = u * r * 0.82;
       pos[i * 3 + 2] = s * Math.sin(phi) * r;
-      seeds[i] = Math.random();
+      seeds[i] = rand();
       // mostly cyan/violet dust, occasional magenta spark
-      const c = palette[Math.random() < 0.12 ? 2 : Math.random() < 0.5 ? 0 : 1];
+      const c = palette[rand() < 0.12 ? 2 : rand() < 0.5 ? 0 : 1];
       colors[i * 3] = c.r;
       colors[i * 3 + 1] = c.g;
       colors[i * 3 + 2] = c.b;
@@ -113,29 +124,26 @@ export default function SignalCore({ low }: { low: boolean }) {
     return geo;
   }, [low]);
 
-  const mouseWorld = useMemo(() => new THREE.Vector3(), []);
-  const ray = useMemo(() => new THREE.Vector3(), []);
-
   useFrame((state, dt) => {
     const t = state.clock.elapsedTime;
-    uniforms.uTime.value = t;
+    coreUniforms.uTime.value = t;
 
     // page-load settle
     const intro = easeOutCubic(Math.min(1, Math.max(0, (t - 0.2) / 1.7)));
     signal.intro = intro;
-    uniforms.uIntro.value = intro;
+    coreUniforms.uIntro.value = intro;
 
     // interaction energy decays toward a faint idle simmer
     signal.energy *= Math.exp(-dt * 2.1);
     signal.speed *= Math.exp(-dt * 3.0);
-    uniforms.uEnergy.value = signal.energy + 0.06;
+    coreUniforms.uEnergy.value = signal.energy + 0.06;
 
     // cursor NDC → world point on the z=0 plane
     ray.set(signal.x, signal.y, 0.5).unproject(camera).sub(camera.position).normalize();
     const hit = ray.z < -1e-4 ? -camera.position.z / ray.z : 0;
     if (hit > 0) {
       mouseWorld.copy(camera.position).addScaledVector(ray, hit);
-      uniforms.uMouse.value.lerp(mouseWorld, 0.22);
+      coreUniforms.uMouse.value.lerp(mouseWorld, 0.22);
     }
 
     const g = group.current;
@@ -166,7 +174,7 @@ export default function SignalCore({ low }: { low: boolean }) {
         <shaderMaterial
           vertexShader={coreVertex}
           fragmentShader={coreFragment}
-          uniforms={uniforms}
+          uniforms={coreUniforms}
         />
       </mesh>
       <points ref={points} geometry={particleGeometry}>

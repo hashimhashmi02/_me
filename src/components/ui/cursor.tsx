@@ -1,7 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { useEffects } from "@/lib/effects";
+
+function subscribePointerType(onChange: () => void) {
+  const mq = window.matchMedia("(pointer: fine)");
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+}
+const getFinePointer = () => window.matchMedia("(pointer: fine)").matches;
+const getFinePointerServer = () => false;
 
 /**
  * Custom cursor: a dot that sticks to the pointer and a trailing ring that
@@ -10,18 +18,14 @@ import { useEffects } from "@/lib/effects";
  */
 export default function Cursor() {
   const { ready, reduced } = useEffects();
-  const [finePointer, setFinePointer] = useState(false);
+  const finePointer = useSyncExternalStore(
+    subscribePointerType,
+    getFinePointer,
+    getFinePointerServer
+  );
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(pointer: fine)");
-    setFinePointer(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setFinePointer(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
 
   const active = ready && !reduced && finePointer;
 

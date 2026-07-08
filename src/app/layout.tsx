@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -17,6 +17,10 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
 });
+
+export const viewport: Viewport = {
+  themeColor: "#08080c",
+};
 
 export const metadata: Metadata = {
   title: "Hashim — Full-stack engineer",
