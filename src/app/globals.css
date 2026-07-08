@@ -1,22 +1,38 @@
 @import "tailwindcss";
 
+/* ————— Signal-room palette — the only place hexes live ————— */
 @theme {
-  --color-bg: #05070d;
-  --color-panel: #0b0f17;
-  --color-panel-2: #0e131d;
-  --color-ink: #e8edf4;
-  --color-body: #9aa7b8;
-  --color-faint: #5d6b7e;
-  --color-line: rgba(154, 173, 199, 0.14);
-  --color-line-strong: rgba(154, 173, 199, 0.28);
-  --color-amber: #ffb224;
-  --color-amber-soft: rgba(255, 178, 36, 0.12);
+  --color-bg: #08080c;
+  --color-surface: #111119;
+  --color-surface-2: #16161f;
+  --color-ink: #eaeaf2;
+  --color-muted: #7a7a8c;
+  --color-cyan: #22e3ff;
+  --color-violet: #8b5cf6;
+  --color-magenta: #ff2e97;
+  --color-lime: #b4ff39;
+  --color-line: rgba(158, 158, 184, 0.13);
+  --color-line-strong: rgba(158, 158, 184, 0.28);
 }
 
 /* Font variables come from next/font on <body>, so they must be inlined. */
 @theme inline {
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", monospace;
+}
+
+:root {
+  /* cyan → violet → magenta signal sweep */
+  --gradient-signal: linear-gradient(
+    120deg,
+    var(--color-cyan) 0%,
+    var(--color-violet) 50%,
+    var(--color-magenta) 100%
+  );
+  --glow-cyan: rgba(34, 227, 255, 0.35);
+  --glow-violet: rgba(139, 92, 246, 0.35);
+  --glow-magenta: rgba(255, 46, 151, 0.3);
 }
 
 html {
@@ -29,23 +45,44 @@ html {
   }
 }
 
+/* Lenis smooth-scroll host styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 body {
   background-color: var(--color-bg);
-  color: var(--color-body);
-  font-family: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  font-weight: 380;
-  font-variation-settings: "opsz" 14;
+  color: var(--color-muted);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
+/* Film grain — one fixed layer, no JS */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 ::selection {
-  background: var(--color-amber);
-  color: #05070d;
+  background: var(--color-magenta);
+  color: var(--color-bg);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-amber);
+  outline: 2px solid var(--color-cyan);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -57,47 +94,111 @@ body {
   background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1b2433;
+  background: #1f1f2d;
   border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a3650;
+  background: #2e2e44;
 }
 
-/* Mono machine layer — labels, tags, metadata */
-.machine {
-  font-family: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+/* Native cursor hidden only while the custom cursor is live */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+/* ————— Type system ————— */
+
+/* Mono eyebrow — labels, stats, code-flavored kickers */
+.eyebrow {
+  font-family: var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", monospace;
   font-size: 0.6875rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 /* The one big type moment */
 .display-hero {
-  font-family: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  font-weight: 640;
-  font-variation-settings: "opsz" 96, "wdth" 92;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
-}
-
-.display-section {
-  font-family: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  font-weight: 560;
-  font-variation-settings: "opsz" 48;
-  letter-spacing: -0.025em;
-  line-height: 1.05;
+  font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(4rem, 14vw, 11rem);
+  letter-spacing: -0.045em;
+  line-height: 0.92;
   color: var(--color-ink);
 }
 
-/* Open-to-work pulse dot — amber means live */
+.display-section {
+  font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.25rem, 5.5vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  color: var(--color-ink);
+}
+
+.display-card {
+  font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+/* Gradient sweep on text — silhouettes of light */
+.text-signal {
+  background: var(--gradient-signal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ————— Surfaces ————— */
+
+.panel {
+  background: color-mix(in srgb, var(--color-surface) 80%, transparent);
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-blur {
+  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Gradient hairline border via mask — used on hover states */
+.border-signal {
+  position: relative;
+}
+.border-signal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--gradient-signal);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.border-signal:hover::before,
+.border-signal:focus-visible::before {
+  opacity: 1;
+}
+
+/* Live pulse — lime is scarce and means "live" */
 .pulse-dot {
   position: relative;
   width: 7px;
   height: 7px;
   border-radius: 9999px;
-  background: var(--color-amber);
+  background: var(--color-lime);
   flex-shrink: 0;
 }
 .pulse-dot::after {
@@ -105,7 +206,7 @@ body {
   position: absolute;
   inset: -4px;
   border-radius: 9999px;
-  border: 1px solid var(--color-amber);
+  border: 1px solid var(--color-lime);
   opacity: 0;
   animation: ping-soft 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
 }
@@ -126,16 +227,31 @@ body {
   }
 }
 
-/* Hairline panel used by cards */
-.panel {
-  background: color-mix(in srgb, var(--color-panel) 78%, transparent);
-  border: 1px solid var(--color-line);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+/* Scroll cue line in the hero */
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
 }
-
-.nav-blur {
-  background: color-mix(in srgb, var(--color-bg) 72%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+.scroll-cue {
+  animation: scroll-cue 2.2s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue {
+    animation: none;
+    transform: none;
+  }
 }

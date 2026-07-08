@@ -1,7 +1,7 @@
 export const SITE = {
   name: "Hashim",
   role: "Full-stack engineer",
-  positioning: "Developer tools & real-time web apps",
+  positioning: "Full-stack engineer building AI-integrated tools that ship.",
   location: "India · remote-friendly",
   status: "Open to work — full-time",
   email: "hashimhashmi02@gmail.com",
@@ -17,89 +17,133 @@ export type Project = {
   title: string;
   category: string;
   description: string;
-  hardPart: string;
+  /** the one metric / hard part that proves it's real */
+  proof: string;
   stack: string[];
-  live: string;
-  source: string;
-  image: string;
+  live?: string;
+  source?: string;
+  /** hue the card glow leans toward */
+  accent: "cyan" | "violet" | "magenta";
 };
 
 export const PROJECTS: Project[] = [
   {
-    slug: "exlite",
-    title: "Exlite",
-    category: "crypto · realtime trading platform",
+    slug: "axon",
+    title: "Axon",
+    category: "llm workflow automation",
     description:
-      "Live cryptocurrency trading platform with real-time market data, interactive price charts, and portfolio management.",
-    hardPart:
-      "Keeping a fast, responsive UI in sync with streaming market data over WebSockets.",
-    stack: ["Next.js", "TypeScript", "Node.js", "WebSockets"],
-    live: "https://exlite-livid.vercel.app/",
-    source: "https://github.com/hashimhashmi02/Exlite",
-    image: "/projects/exlite.png",
+      "Node-based LLM workflow automation — wire models, services, and APIs into executable graphs.",
+    proof: "Has paying users",
+    stack: ["React Flow", "Node.js", "Real-time", "Integrations"],
+    live: "https://axon-hazel.vercel.app/",
+    source: "https://github.com/hashimhashmi02/axon",
+    accent: "cyan",
   },
   {
     slug: "bug",
     title: "Bug",
-    category: "ai · agentic browser IDE",
+    category: "browser ide",
     description:
-      "AI-powered, browser-based coding environment and agentic workspace — write, run, and iterate on code entirely in the browser.",
-    hardPart:
-      "Running a real execution environment client-side with WebContainers, wired to live data via Convex and auth via Clerk.",
-    stack: ["Next.js", "React", "WebContainers", "Convex", "Clerk"],
+      "Browser IDE with AI code suggestions served through a custom CodeMirror 6 plugin.",
+    proof: "Sub-200ms AI suggestions",
+    stack: ["Next.js", "CodeMirror 6", "WebContainers", "Convex"],
     live: "https://bug-opal.vercel.app/",
     source: "https://github.com/hashimhashmi02/bug",
-    image: "/projects/bug.png",
+    accent: "magenta",
   },
   {
     slug: "doable",
     title: "Doable",
-    category: "ai · app builder",
+    category: "ai app builder",
     description:
-      "AI app builder that generates full-stack applications and websites from a conversational prompt.",
-    hardPart:
-      "Turning open-ended chat into structured, runnable code — prompt design and output validation over the raw model call.",
-    stack: ["React", "OpenAI API", "TypeScript", "Tailwind CSS"],
+      "Natural-language-to-React-app builder — describe the app, get structured, runnable code.",
+    proof: "Prompt → validated running app",
+    stack: ["React", "OpenAI API", "TypeScript", "Tailwind"],
     live: "https://doablev2.vercel.app/",
     source: "https://github.com/hashimhashmi02/Doablev2",
-    image: "/projects/doable.png",
+    accent: "violet",
   },
   {
-    slug: "axon",
-    title: "Axon",
-    category: "automation · workflow engine",
+    slug: "exlite",
+    title: "Exlite",
+    category: "realtime trading",
     description:
-      "Visual workflow automation tool — connect services and APIs through a node-based, drag-and-connect interface.",
-    hardPart:
-      "A runtime that walks the graph, executes each node, and passes data between integrations.",
-    stack: ["React Flow", "Node.js", "Express", "Integrations"],
-    live: "https://axon-hazel.vercel.app/",
-    source: "https://github.com/hashimhashmi02/axon",
-    image: "/projects/axon.png",
+      "Real-time crypto trading platform — streaming market data, live charts, portfolio tracking.",
+    proof: "Live order books over WebSockets",
+    stack: ["Next.js", "TypeScript", "Node.js", "WebSockets"],
+    live: "https://exlite-livid.vercel.app/",
+    source: "https://github.com/hashimhashmi02/Exlite",
+    accent: "cyan",
+  },
+  {
+    slug: "dailywages",
+    title: "DailyWages",
+    category: "services marketplace",
+    description:
+      "Hyperlocal services marketplace connecting daily-wage workers with nearby jobs.",
+    proof: "GPS + Aadhaar verification + UPI payments",
+    stack: ["Next.js", "PostgreSQL", "Maps/GPS", "UPI"],
+    // TODO(hashim): add live/source URLs
+    accent: "violet",
+  },
+  {
+    slug: "tryla",
+    title: "Tryla",
+    category: "production api",
+    description:
+      "Production REST API with dual payment gateways and Redis-backed caching.",
+    proof: "Dual payment gateways + Redis caching",
+    stack: ["Node.js", "Express", "Redis", "PostgreSQL"],
+    // TODO(hashim): add live/source URLs
+    accent: "magenta",
   },
 ];
 
-export const STACK_GROUPS = [
-  {
-    label: "Daily drivers",
-    note: "The tools every project here is built on.",
-    items: ["TypeScript", "Next.js / React", "Node.js", "Tailwind"],
-  },
-  {
-    label: "Data & backend",
-    note: "Where the realtime and persistence work happens.",
-    items: ["PostgreSQL", "Prisma", "WebSockets", "Convex"],
-  },
-  {
-    label: "Also work with",
-    note: "In service of shipping, not on the résumé for show.",
-    items: ["Docker", "Redis", "AWS", "Framer Motion"],
-  },
+export const STACK = [
+  { name: "Next.js", note: "app router, RSC, the default" },
+  { name: "TypeScript", note: "strict; types are the spec" },
+  { name: "tRPC", note: "end-to-end typed APIs" },
+  { name: "PostgreSQL / Prisma", note: "relational by default" },
+  { name: "Node / NestJS", note: "services & realtime backends" },
+  { name: "React Flow", note: "node editors & graph UIs" },
+  { name: "Redis", note: "caching, queues, presence" },
+  { name: "Three.js", note: "R3F, shaders, this site" },
 ] as const;
+
+export type LogEntry = {
+  date: string; // ISO-ish, editable
+  tag: "ship" | "wip" | "fix";
+  text: string;
+};
+
+/** Build log — placeholder entries, edit freely. */
+export const BUILD_LOG: LogEntry[] = [
+  {
+    date: "2026-07",
+    tag: "wip",
+    text: "Building an AI HR hiring dashboard at Zuvomo — pipeline scoring + structured screening.",
+  },
+  {
+    date: "2026-06",
+    tag: "ship",
+    text: "Axon: usage-based billing shipped; first paying users onboarded.",
+  },
+  {
+    date: "2026-05",
+    tag: "ship",
+    text: "Bug: custom CodeMirror 6 suggestion plugin — p95 latency under 200ms.",
+  },
+  {
+    date: "2026-04",
+    tag: "fix",
+    text: "Exlite: reconnect/backoff for WebSocket feeds; zero dropped candles on flaky networks.",
+  },
+];
 
 export const NAV_LINKS = [
   { label: "Work", href: "#work" },
   { label: "About", href: "#about" },
   { label: "Stack", href: "#stack" },
+  { label: "Log", href: "#log" },
   { label: "Contact", href: "#contact" },
 ] as const;

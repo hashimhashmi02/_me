@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { NAV_LINKS, SITE } from "@/lib/data";
+import { NAV_LINKS } from "@/lib/data";
 import { useEffects } from "@/lib/effects";
+import { scrollToTarget } from "@/components/providers/smooth-scroll";
 
-export function Nav() {
-  const [scrolled, setScrolled] = useState(false);
+export default function Nav() {
   const { ready, reduced, toggle } = useEffects();
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -17,57 +18,55 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-[border-color,background-color] duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-[background,border-color] duration-300 ${
         scrolled ? "nav-blur border-b border-line" : "border-b border-transparent"
       }`}
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8"
+        className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8"
       >
         <a
           href="#main"
-          className="font-display text-[15px] font-semibold tracking-tight text-ink"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToTarget("#main");
+          }}
+          className="display-card text-base tracking-tight text-ink"
+          data-cursor-label="top"
         >
-          hashim<span className="text-amber">.</span>
+          Hashim<span className="text-cyan">.</span>
         </a>
 
-        <div className="hidden items-center gap-7 md:flex">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="machine text-faint transition-colors hover:text-ink"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-3 sm:gap-4">
-          <span className="machine hidden items-center gap-2.5 text-body sm:flex">
-            <span className="pulse-dot" aria-hidden />
-            open to work
-          </span>
+        <div className="flex items-center gap-1 md:gap-2">
+          <ul className="hidden items-center gap-1 sm:flex">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToTarget(link.href);
+                  }}
+                  className="eyebrow rounded px-3 py-2 text-muted transition-colors hover:text-cyan"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
 
           {ready && (
             <button
               type="button"
               onClick={toggle}
               aria-pressed={!reduced}
-              title={reduced ? "Enable 3D effects" : "Reduce effects"}
-              className="machine rounded-md border border-line px-2.5 py-1.5 text-faint transition-colors hover:border-line-strong hover:text-ink"
+              title={reduced ? "Effects reduced — turn on" : "Effects on — reduce"}
+              className="eyebrow rounded border border-line px-3 py-2 text-muted transition-colors hover:border-line-strong hover:text-ink"
             >
-              fx·{reduced ? "off" : "on"}
+              fx<span className={reduced ? "text-muted" : "text-lime"}>·{reduced ? "off" : "on"}</span>
             </button>
           )}
-
-          <a
-            href={`mailto:${SITE.email}`}
-            className="machine rounded-md bg-ink px-3.5 py-2 text-bg transition-colors hover:bg-amber"
-          >
-            Get in touch
-          </a>
         </div>
       </nav>
     </header>
