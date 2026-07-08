@@ -227,6 +227,39 @@ html.has-cursor * {
   }
 }
 
+/* Stack tiles — heat follows the pointer, idle float keeps the board alive */
+.stack-tile {
+  --heat: 0;
+  --tx: 0px;
+  --ty: 0px;
+  transform: translate(var(--tx), var(--ty));
+  border-color: color-mix(
+    in srgb,
+    var(--color-cyan) calc(var(--heat) * 55%),
+    var(--color-line)
+  );
+  box-shadow: 0 0 calc(var(--heat) * 34px)
+    color-mix(in srgb, var(--color-violet) calc(var(--heat) * 26%), transparent);
+  animation: tile-float 7s ease-in-out infinite;
+  transition: border-color 0.15s linear;
+  will-change: transform;
+}
+@keyframes tile-float {
+  0%,
+  100% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -6px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stack-tile {
+    animation: none;
+    transform: none;
+  }
+}
+
 /* Scroll cue line in the hero */
 @keyframes scroll-cue {
   0% {
