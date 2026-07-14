@@ -1,43 +1,52 @@
-import type { Metadata } from "next";
-import { Bricolage_Grotesque, IBM_Plex_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
-  axes: ["opsz", "wdth"],
 });
 
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#08080c",
+};
+
 export const metadata: Metadata = {
-  title: "Hashim — Developer tools & real-time web apps",
+  title: "Hashim — Full-stack engineer",
   description:
-    "Full-stack engineer building developer tools and real-time web apps — trading platforms, agentic coding environments, AI app builders, and node-based automation engines. Open to full-time roles.",
+    "Full-stack engineer building AI-integrated tools that ship — LLM workflow automation, browser IDEs, real-time trading platforms, and production APIs. Open to full-time roles.",
   authors: [{ name: "Hashim" }],
   keywords: [
-    "developer tools",
-    "real-time",
-    "WebSockets",
+    "full-stack engineer",
+    "AI tools",
     "Next.js",
     "TypeScript",
-    "full-stack engineer",
+    "tRPC",
+    "real-time",
+    "Three.js",
   ],
   openGraph: {
-    title: "Hashim — Developer tools & real-time web apps",
+    title: "Hashim — Full-stack engineer",
     description:
-      "Full-stack engineer building trading platforms, agentic IDEs, AI app builders, and workflow engines. Open to full-time roles.",
+      "Full-stack engineer building AI-integrated tools that ship — LLM workflow automation, browser IDEs, real-time platforms.",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Hashim — Developer tools & real-time web apps",
+    title: "Hashim — Full-stack engineer",
     description:
-      "Full-stack engineer building trading platforms, agentic IDEs, AI app builders, and workflow engines.",
+      "Full-stack engineer building AI-integrated tools that ship.",
   },
 };
 
@@ -46,10 +55,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${bricolage.variable} ${plexMono.variable}`}>
+      <body
+        className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      >
         <a
           href="#main"
-          className="machine sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-amber focus:px-4 focus:py-2 focus:text-bg"
+          className="eyebrow sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:bg-cyan focus:px-4 focus:py-2 focus:text-bg"
         >
           Skip to content
         </a>

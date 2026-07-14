@@ -1,38 +1,59 @@
 import { Reveal } from "@/components/ui/reveal";
 
-export function About() {
+const FACTS = [
+  { k: "now", v: "AI HR hiring dashboard @ Zuvomo" },
+  { k: "edu", v: "MCA · Manipal · 2026" },
+  { k: "proof", v: "side projects with paying users" },
+  { k: "else", v: "cricket video editor, off hours" },
+] as const;
+
+export default function About() {
   return (
     <section
       id="about"
-      aria-labelledby="about-heading"
-      className="relative mx-auto max-w-6xl scroll-mt-20 px-5 py-28 sm:px-8"
+      className="mx-auto max-w-6xl px-5 py-28 md:px-8 md:py-40"
     >
-      <div className="max-w-2xl">
-        <Reveal>
-          <p className="machine mb-3 text-amber">02 — about</p>
-          <h2 id="about-heading" className="display-section text-4xl sm:text-5xl">
-            Tools for people
-            <br />
-            who build tools.
-          </h2>
-        </Reveal>
+      <Reveal kind="mask">
+        <p className="eyebrow text-cyan">01 · about</p>
+      </Reveal>
 
-        <Reveal delay={0.1}>
-          <div className="mt-7 space-y-5 text-[17px] leading-relaxed text-body">
-            <p>
-              I gravitate toward tools other developers use — IDEs, automation
-              builders, real-time dashboards. Products where a sloppy interface
-              and a sloppy backend both show up immediately.
+      <div className="mt-6 grid gap-12 md:grid-cols-[1.5fr_1fr] md:gap-16">
+        <div>
+          <Reveal kind="mask" delay={0.08}>
+            <h2 className="display-section max-w-xl">
+              I build products end to end — and I like them{" "}
+              <span className="text-signal">typed, real-time, and shipped</span>.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.24}>
+            <p className="mt-8 max-w-xl leading-relaxed text-muted">
+              Full-stack engineer with a systems bias: Next.js and TypeScript
+              on the surface, PostgreSQL, Redis, and WebSockets underneath.
+              Right now I&apos;m building an AI hiring dashboard at Zuvomo and
+              finishing my MCA at Manipal. My side projects have paying users
+              — which taught me more about software than any course did.
             </p>
-            <p>
-              I care about how the front end and the system underneath stay in
-              sync: the WebSocket feed and the chart it drives, the workflow
-              graph and the runtime that walks it.
+          </Reveal>
+          <Reveal delay={0.34}>
+            <p className="mt-5 max-w-xl leading-relaxed text-muted">
+              Off hours I edit cricket videos. Different craft, same instinct:
+              cut everything that doesn&apos;t earn its frame.
             </p>
-            <p className="text-ink">
-              Currently looking for a full-time role on a team that ships.
-            </p>
-          </div>
+          </Reveal>
+        </div>
+
+        <Reveal delay={0.3}>
+          <dl className="panel space-y-5 rounded-2xl p-7">
+            {FACTS.map((f) => (
+              <div
+                key={f.k}
+                className="flex items-baseline justify-between gap-4 border-b border-line pb-4 last:border-0 last:pb-0"
+              >
+                <dt className="eyebrow shrink-0 text-muted/70">{f.k}</dt>
+                <dd className="eyebrow text-right text-ink/90">{f.v}</dd>
+              </div>
+            ))}
+          </dl>
         </Reveal>
       </div>
     </section>
