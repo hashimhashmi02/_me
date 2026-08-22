@@ -64,6 +64,7 @@ export const PROJECTS: Project[] = [
     detail:
       "The simulation is pure TypeScript with no Three.js or React imports, so physics, collision, spawning, and chase AI all run headless under 25 Vitest tests. A fixed 120 Hz timestep keeps behavior identical across refresh rates, preallocated pools keep the render loop allocation-free, and everything repeated is instanced. Characters are procedurally rigged, textures are drawn to canvas at runtime, and sound is synthesized with WebAudio.",
     live: "https://city-run.vercel.app/",
+    source: "https://github.com/hashimhashmi02/CityRun",
     accent: "cyan",
   },
   {

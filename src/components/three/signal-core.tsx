@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { coreVertex, coreFragment } from "./shaders/core.glsl";
 import { signal } from "@/lib/pointer";
+import { revealElapsed } from "@/lib/loading";
 import { paletteColor } from "./palette";
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -85,8 +86,11 @@ export default function SignalCore({ low }: { low: boolean }) {
     [low]
   );
 
+  // Displacement is low-frequency, so the silhouette survives a much coarser
+  // mesh. Detail 48 meant ~144k vertex invocations each running field() three
+  // times at six noise calls apiece; 28 cuts that by about two thirds.
   const geometry = useMemo(
-    () => new THREE.IcosahedronGeometry(1.15, low ? 20 : 48),
+    () => new THREE.IcosahedronGeometry(1.15, low ? 14 : 28),
     [low]
   );
 
@@ -128,8 +132,10 @@ export default function SignalCore({ low }: { low: boolean }) {
     const t = state.clock.elapsedTime;
     coreUniforms.uTime.value = t;
 
-    // page-load settle
-    const intro = easeOutCubic(Math.min(1, Math.max(0, (t - 0.2) / 1.7)));
+    // settle in once the loader clears, not while it still covers the screen
+    const intro = easeOutCubic(
+      Math.min(1, Math.max(0, (revealElapsed() - 0.1) / 1.6))
+    );
     signal.intro = intro;
     coreUniforms.uIntro.value = intro;
 

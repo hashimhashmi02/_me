@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SITE } from "@/lib/data";
 import { useEffects } from "@/lib/effects";
 import { signal } from "@/lib/pointer";
+import { hasRevealed, subscribeLoading } from "@/lib/loading";
 import { Reveal } from "@/components/ui/reveal";
 import Magnetic from "@/components/ui/magnetic";
 import StaticHero from "@/components/three/static-hero";
@@ -27,6 +28,13 @@ export default function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
   const cueRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(true);
+  // hero copy mounts only after the loader clears, so its mask reveals play
+  // to a watching visitor instead of behind the boot screen
+  const revealed = useSyncExternalStore(
+    subscribeLoading,
+    hasRevealed,
+    () => false
+  );
 
   // idle the canvas when the hero is far off-screen
   useEffect(() => {
@@ -42,7 +50,7 @@ export default function Hero() {
 
   // pinned handoff: hold the hero, dolly the 3D camera, lift the copy out
   useEffect(() => {
-    if (!ready || reduced) return;
+    if (!ready || reduced || !revealed) return;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -66,7 +74,7 @@ export default function Hero() {
       ctx.revert();
       signal.scroll = 0;
     };
-  }, [ready, reduced]);
+  }, [ready, reduced, revealed]);
 
   return (
     <section
@@ -85,6 +93,7 @@ export default function Hero() {
 
       <div
         ref={contentRef}
+        key={revealed ? "revealed" : "booting"}
         className="relative z-10 mx-auto w-full max-w-6xl px-5 pt-20 md:px-8"
       >
         <Reveal kind="mask" delay={0.2}>

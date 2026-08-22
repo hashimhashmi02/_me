@@ -12,6 +12,7 @@ import {
 import HeroBackground from "./hero-background";
 import SignalCore from "./signal-core";
 import { feedPointer, signal } from "@/lib/pointer";
+import { markSceneReady } from "@/lib/loading";
 
 /** Dolly the camera as the pinned hero scrolls out — the handoff shot. */
 function CameraRig() {
@@ -67,6 +68,12 @@ export default function HeroScene({ active = true }: { active?: boolean }) {
         powerPreference: "high-performance",
       }}
       style={{ position: "absolute", inset: 0 }}
+      onCreated={({ gl, scene, camera }) => {
+        // Force shader compilation now, while the loader still covers the
+        // screen, instead of on the first visible frame.
+        gl.compile(scene, camera);
+        requestAnimationFrame(() => requestAnimationFrame(markSceneReady));
+      }}
     >
       <HeroBackground />
       <SignalCore low={low} />
