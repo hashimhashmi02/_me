@@ -187,23 +187,10 @@ export default function ProjectCard({
                 {project.proof}
               </p>
 
-              {project.highlights && (
-                <ul className="mt-6 space-y-3 border-t border-line pt-6">
-                  {project.highlights.map((h, i) => (
-                    <li
-                      key={i}
-                      className="flex gap-3 text-sm leading-relaxed text-muted"
-                    >
-                      <span
-                        aria-hidden
-                        className="eyebrow shrink-0 pt-0.5 text-muted/50"
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      {h}
-                    </li>
-                  ))}
-                </ul>
+              {project.detail && (
+                <p className="mt-6 border-t border-line pt-6 text-sm leading-relaxed text-muted">
+                  {project.detail}
+                </p>
               )}
 
               <div className="mt-6 flex flex-wrap gap-2">

@@ -21,7 +21,7 @@ export default function About() {
         <div>
           <Reveal kind="mask" delay={0.08}>
             <h2 className="display-section max-w-xl">
-              I build products end to end — and I like them{" "}
+              I build products end to end, and I like them{" "}
               <span className="text-signal">typed, real-time, and shipped</span>.
             </h2>
           </Reveal>
@@ -30,8 +30,8 @@ export default function About() {
               Full-stack engineer with a systems bias: Next.js and TypeScript
               on the surface, PostgreSQL, Redis, and WebSockets underneath.
               Right now I&apos;m building an AI hiring dashboard at Zuvomo and
-              finishing my MCA at Manipal. My side projects have paying users
-              — which taught me more about software than any course did.
+              finishing my MCA at Manipal. My side projects have paying users,
+              which taught me more about software than any course did.
             </p>
           </Reveal>
           <Reveal delay={0.34}>

@@ -61,7 +61,7 @@ export default function Nav() {
               type="button"
               onClick={toggle}
               aria-pressed={!reduced}
-              title={reduced ? "Effects reduced — turn on" : "Effects on — reduce"}
+              title={reduced ? "Effects reduced, turn on" : "Effects on, reduce"}
               className="eyebrow rounded border border-line px-3 py-2 text-muted transition-colors hover:border-line-strong hover:text-ink"
             >
               fx<span className={reduced ? "text-muted" : "text-lime"}>·{reduced ? "off" : "on"}</span>

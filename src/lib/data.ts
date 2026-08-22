@@ -3,7 +3,7 @@ export const SITE = {
   role: "Full-stack engineer",
   positioning: "Full-stack engineer building AI-integrated tools that ship.",
   location: "India · remote-friendly",
-  status: "Open to work — full-time",
+  status: "Open to work · full-time",
   email: "hashimhashmi02@gmail.com",
   resume: "/resume.pdf",
   calLink: "https://cal.com/hashim-hashmi-pk5n0m",
@@ -20,8 +20,8 @@ export type Project = {
   /** the one metric / hard part that proves it's real */
   proof: string;
   stack: string[];
-  /** engineering detail — shown only in the expanded card */
-  highlights?: string[];
+  /** extra engineering context, shown only in the expanded card */
+  detail?: string;
   live?: string;
   source?: string;
   /** hue the card glow leans toward */
@@ -34,7 +34,7 @@ export const PROJECTS: Project[] = [
     title: "Axon",
     category: "llm workflow automation",
     description:
-      "Node-based LLM workflow automation — wire models, services, and APIs into executable graphs.",
+      "Node-based LLM workflow automation. Wire models, services, and APIs into executable graphs.",
     proof: "Has paying users",
     stack: ["React Flow", "Node.js", "Real-time", "Integrations"],
     live: "https://axon-hazel.vercel.app/",
@@ -58,19 +58,11 @@ export const PROJECTS: Project[] = [
     title: "CityRun",
     category: "3d · endless runner",
     description:
-      "Neon three-lane endless runner where every character, texture, and sound is generated in code — no asset files at all.",
-    proof: "Zero assets · ~15 draw calls",
+      "Neon three-lane endless runner with every character, texture, and sound generated in code.",
+    proof: "Zero asset files · ~15 draw calls",
     stack: ["React Three Fiber", "TypeScript", "Zustand", "WebAudio", "Vitest"],
-    highlights: [
-      "Simulation (~580 lines) is pure TypeScript with no Three.js or React imports — physics, collision, spawning, difficulty, and chase AI all headless-testable. 25 Vitest tests drive scripted playthroughs with no browser or GPU.",
-      "Fixed 120 Hz timestep behind an accumulator with interpolated rendering, so behavior is identical on a 60 Hz laptop and a 144 Hz monitor.",
-      "Zero per-frame allocation: obstacles, coins, and buildings live in preallocated pools, recycled by an index swap and a matrix write. No GC pressure in the render loop.",
-      "Everything repeated is an InstancedMesh, and the city streams infinitely by hashing positions from distance — buildings keep their identity while visible and re-roll only after wrapping behind the camera.",
-      "Procedurally rigged humanoids with real elbow and knee joints, canvas-generated facades and neon signs, WebAudio-synthesized sound. Ships as one JS bundle.",
-      "Game feel: 100ms coyote time, 150ms input buffering, eased lane transitions, speed-reactive FOV, and coin trails that arc along the jump parabola to teach the input by shape instead of tutorial text.",
-      "Hardest part: porting from a 2D prototype meant discarding rigidbody physics entirely, since it can't express lane-based movement. Rewriting collision as pure arithmetic (lane match ∧ z-overlap ∧ height-interval overlap) turned out simpler, allocation-free, and deterministic.",
-    ],
-    // TODO(hashim): add live/source URLs
+    detail:
+      "The simulation is pure TypeScript with no Three.js or React imports, so physics, collision, spawning, and chase AI all run headless under 25 Vitest tests. A fixed 120 Hz timestep keeps behavior identical across refresh rates, preallocated pools keep the render loop allocation-free, and everything repeated is instanced. Characters are procedurally rigged, textures are drawn to canvas at runtime, and sound is synthesized with WebAudio.",
     accent: "cyan",
   },
   {
@@ -78,7 +70,7 @@ export const PROJECTS: Project[] = [
     title: "Doable",
     category: "ai app builder",
     description:
-      "Natural-language-to-React-app builder — describe the app, get structured, runnable code.",
+      "Natural-language-to-React-app builder. Describe the app, get structured, runnable code.",
     proof: "Prompt → validated running app",
     stack: ["React", "OpenAI API", "TypeScript", "Tailwind"],
     live: "https://doablev2.vercel.app/",
@@ -90,7 +82,7 @@ export const PROJECTS: Project[] = [
     title: "Exlite",
     category: "realtime trading",
     description:
-      "Real-time crypto trading platform — streaming market data, live charts, portfolio tracking.",
+      "Real-time crypto trading platform with streaming market data, live charts, and portfolio tracking.",
     proof: "Live order books over WebSockets",
     stack: ["Next.js", "TypeScript", "Node.js", "WebSockets"],
     live: "https://exlite-livid.vercel.app/",
@@ -143,7 +135,12 @@ export const BUILD_LOG: LogEntry[] = [
   {
     date: "2026-07",
     tag: "wip",
-    text: "Building an AI HR hiring dashboard at Zuvomo — pipeline scoring + structured screening.",
+    text: "Building an AI HR hiring dashboard at Zuvomo: pipeline scoring + structured screening.",
+  },
+  {
+    date: "2026-07",
+    tag: "ship",
+    text: "CityRun: 3D endless runner shipped, ~2,400 lines of TypeScript and zero asset files.",
   },
   {
     date: "2026-06",
@@ -153,7 +150,7 @@ export const BUILD_LOG: LogEntry[] = [
   {
     date: "2026-05",
     tag: "ship",
-    text: "Bug: custom CodeMirror 6 suggestion plugin — p95 latency under 200ms.",
+    text: "Bug: custom CodeMirror 6 suggestion plugin, p95 latency under 200ms.",
   },
   {
     date: "2026-04",
