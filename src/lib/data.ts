@@ -20,6 +20,8 @@ export type Project = {
   /** the one metric / hard part that proves it's real */
   proof: string;
   stack: string[];
+  /** engineering detail — shown only in the expanded card */
+  highlights?: string[];
   live?: string;
   source?: string;
   /** hue the card glow leans toward */
@@ -50,6 +52,26 @@ export const PROJECTS: Project[] = [
     live: "https://bug-opal.vercel.app/",
     source: "https://github.com/hashimhashmi02/bug",
     accent: "magenta",
+  },
+  {
+    slug: "cityrun",
+    title: "CityRun",
+    category: "3d · endless runner",
+    description:
+      "Neon three-lane endless runner where every character, texture, and sound is generated in code — no asset files at all.",
+    proof: "Zero assets · ~15 draw calls",
+    stack: ["React Three Fiber", "TypeScript", "Zustand", "WebAudio", "Vitest"],
+    highlights: [
+      "Simulation (~580 lines) is pure TypeScript with no Three.js or React imports — physics, collision, spawning, difficulty, and chase AI all headless-testable. 25 Vitest tests drive scripted playthroughs with no browser or GPU.",
+      "Fixed 120 Hz timestep behind an accumulator with interpolated rendering, so behavior is identical on a 60 Hz laptop and a 144 Hz monitor.",
+      "Zero per-frame allocation: obstacles, coins, and buildings live in preallocated pools, recycled by an index swap and a matrix write. No GC pressure in the render loop.",
+      "Everything repeated is an InstancedMesh, and the city streams infinitely by hashing positions from distance — buildings keep their identity while visible and re-roll only after wrapping behind the camera.",
+      "Procedurally rigged humanoids with real elbow and knee joints, canvas-generated facades and neon signs, WebAudio-synthesized sound. Ships as one JS bundle.",
+      "Game feel: 100ms coyote time, 150ms input buffering, eased lane transitions, speed-reactive FOV, and coin trails that arc along the jump parabola to teach the input by shape instead of tutorial text.",
+      "Hardest part: porting from a 2D prototype meant discarding rigidbody physics entirely, since it can't express lane-based movement. Rewriting collision as pure arithmetic (lane match ∧ z-overlap ∧ height-interval overlap) turned out simpler, allocation-free, and deterministic.",
+    ],
+    // TODO(hashim): add live/source URLs
+    accent: "cyan",
   },
   {
     slug: "doable",

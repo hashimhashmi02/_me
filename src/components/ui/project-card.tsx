@@ -164,7 +164,7 @@ export default function ProjectCard({
               layoutId={reduced ? undefined : `card-${project.slug}`}
               initial={reduced ? { opacity: 0 } : undefined}
               animate={reduced ? { opacity: 1 } : undefined}
-              className="panel relative w-full max-w-xl rounded-2xl p-8 md:p-10"
+              className="panel relative max-h-[85vh] w-full max-w-xl overflow-y-auto rounded-2xl p-8 md:p-10"
               style={{
                 boxShadow: `0 0 80px -20px ${glow.replace("0.1", "0.3")}`,
               }}
@@ -186,6 +186,26 @@ export default function ProjectCard({
                 />
                 {project.proof}
               </p>
+
+              {project.highlights && (
+                <ul className="mt-6 space-y-3 border-t border-line pt-6">
+                  {project.highlights.map((h, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-3 text-sm leading-relaxed text-muted"
+                    >
+                      <span
+                        aria-hidden
+                        className="eyebrow shrink-0 pt-0.5 text-muted/50"
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
               <div className="mt-6 flex flex-wrap gap-2">
                 {project.stack.map((s) => (
                   <span
