@@ -30,11 +30,18 @@ export function Reveal({
   kind = "fade",
   delay = 0,
   className,
+  play,
 }: {
   children: React.ReactNode;
   kind?: "mask" | "fade";
   delay?: number;
   className?: string;
+  /**
+   * Drive the animation explicitly instead of by viewport entry. The hero
+   * uses this so its copy stays hidden under the boot screen and animates
+   * once, when the loader clears, rather than playing unseen behind it.
+   */
+  play?: boolean;
 }) {
   const prefersReduced = useReducedMotion();
   const { reduced } = useEffects();
@@ -42,6 +49,11 @@ export function Reveal({
   if (prefersReduced || reduced) {
     return <div className={className}>{children}</div>;
   }
+
+  const trigger =
+    play === undefined
+      ? ({ whileInView: "visible", viewport: { once: true, margin: "-12% 0px" } } as const)
+      : ({ animate: play ? "visible" : "hidden" } as const);
 
   if (kind === "mask") {
     // whileInView must live on the clipping wrapper: the translated inner
@@ -51,8 +63,7 @@ export function Reveal({
       <motion.div
         className={`overflow-hidden ${className ?? ""}`}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-12% 0px" }}
+        {...trigger}
         custom={delay}
       >
         <motion.div
@@ -71,8 +82,7 @@ export function Reveal({
       className={className}
       variants={variants.fade}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-12% 0px" }}
+      {...trigger}
       custom={delay}
     >
       {children}

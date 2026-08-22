@@ -93,30 +93,29 @@ export default function Hero() {
 
       <div
         ref={contentRef}
-        key={revealed ? "revealed" : "booting"}
         className="relative z-10 mx-auto w-full max-w-6xl px-5 pt-20 md:px-8"
       >
-        <Reveal kind="mask" delay={0.2}>
+        <Reveal kind="mask" delay={0.2} play={revealed}>
           <p className="eyebrow flex items-center gap-3 text-muted">
             <span className="pulse-dot" aria-hidden />
             {SITE.status} · {SITE.location}
           </p>
         </Reveal>
 
-        <Reveal kind="mask" delay={0.34}>
+        <Reveal kind="mask" delay={0.34} play={revealed}>
           <h1 className="display-hero mt-6">
             Hashim<span className="text-signal">.</span>
           </h1>
         </Reveal>
 
-        <Reveal kind="mask" delay={0.52}>
+        <Reveal kind="mask" delay={0.52} play={revealed}>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/85 md:text-xl">
             Full-stack engineer building{" "}
             <span className="text-cyan">AI-integrated tools</span> that ship.
           </p>
         </Reveal>
 
-        <Reveal delay={0.72}>
+        <Reveal delay={0.72} play={revealed}>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Magnetic>
               <a

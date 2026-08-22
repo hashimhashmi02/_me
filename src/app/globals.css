@@ -36,11 +36,20 @@
 }
 
 html {
+  /* Lenis drives smooth scrolling; native smooth fights it and causes
+     stutter on anchor jumps. Reduced-effects mode has no Lenis, so it
+     opts back in below. */
+  scroll-behavior: auto;
+  /* stop the trackpad from rubber-banding past the top and bottom */
+  overscroll-behavior-y: none;
+}
+
+html:not(.lenis) {
   scroll-behavior: smooth;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
+  html:not(.lenis) {
     scroll-behavior: auto;
   }
 }
@@ -62,7 +71,10 @@ body {
   color: var(--color-muted);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  /* `clip` contains overflow without making body a scroll container, which
+     is what `hidden` does and what Lenis then has to fight. */
+  overflow-x: clip;
+  overscroll-behavior-y: none;
 }
 
 /* Film grain — one fixed layer, no JS */
@@ -240,23 +252,27 @@ html.has-cursor * {
   );
   box-shadow: 0 0 calc(var(--heat) * 34px)
     color-mix(in srgb, var(--color-violet) calc(var(--heat) * 26%), transparent);
+  /* `translate` is its own property, so the idle float composes with the
+     pointer-heat transform above without either clobbering the other.
+     Animating margin here would relayout the page on every frame. */
   animation: tile-float 7s ease-in-out infinite;
   transition: border-color 0.15s linear;
-  will-change: transform;
+  will-change: transform, translate;
 }
 @keyframes tile-float {
   0%,
   100% {
-    margin-top: 0;
+    translate: 0 0;
   }
   50% {
-    margin-top: -6px;
+    translate: 0 -6px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .stack-tile {
     animation: none;
     transform: none;
+    translate: none;
   }
 }
 
