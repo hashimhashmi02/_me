@@ -36,7 +36,15 @@ export default function SmoothScroll({
   useEffect(() => {
     if (!ready || reduced) return;
 
-    const lenis = new Lenis({ lerp: 0.115, smoothWheel: true });
+    // A low lerp glides for a long time after the fingers stop, which on a
+    // trackpad reads as overshooting whatever you meant to stop at. Higher
+    // is still smooth but settles where you left it.
+    const lenis = new Lenis({
+      lerp: 0.18,
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+      syncTouch: true,
+    });
     lenisInstance = lenis;
     lenis.on("scroll", ScrollTrigger.update);
 

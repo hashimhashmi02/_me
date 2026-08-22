@@ -75,7 +75,7 @@ export default function Work() {
       </Reveal>
       <Reveal delay={0.2}>
         <p className="mt-5 max-w-xl text-muted">
-          Six projects, each with the one number or hard part that proves it
+          Seven projects, each with the one number or hard part that proves it
           runs in the real world.
         </p>
       </Reveal>

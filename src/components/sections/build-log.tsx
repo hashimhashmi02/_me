@@ -24,7 +24,7 @@ export default function BuildLog() {
             <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-lime/50" />
             <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-cyan/50" />
             <span className="eyebrow ml-3 text-muted/70">
-              hashim@dev — build.log
+              hashim@dev · build.log
             </span>
           </div>
           <ol className="divide-y divide-line px-5 py-2 md:px-6">

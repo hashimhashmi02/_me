@@ -18,7 +18,7 @@ export default function Contact() {
       <Reveal kind="mask">
         <p className="eyebrow flex items-center gap-3 text-cyan">
           <span className="pulse-dot" aria-hidden />
-          05 · contact — open to full-time roles
+          05 · contact · open to full-time roles
         </p>
       </Reveal>
 

@@ -1,5 +1,6 @@
 import SmoothScroll from "@/components/providers/smooth-scroll";
 import Cursor from "@/components/ui/cursor";
+import Loader from "@/components/ui/loader";
 import Nav from "@/components/sections/nav";
 import Hero from "@/components/sections/hero";
 import About from "@/components/sections/about";
@@ -12,6 +13,7 @@ import Footer from "@/components/sections/footer";
 export default function Home() {
   return (
     <SmoothScroll>
+      <Loader />
       <Cursor />
       <Nav />
       <main id="main">

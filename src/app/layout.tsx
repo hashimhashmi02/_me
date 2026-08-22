@@ -23,9 +23,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Hashim — Full-stack engineer",
+  title: "Hashim · Full-stack engineer",
   description:
-    "Full-stack engineer building AI-integrated tools that ship — LLM workflow automation, browser IDEs, real-time trading platforms, and production APIs. Open to full-time roles.",
+    "Full-stack engineer building AI-integrated tools that ship: LLM workflow automation, browser IDEs, real-time trading platforms, and production APIs. Open to full-time roles.",
   authors: [{ name: "Hashim" }],
   keywords: [
     "full-stack engineer",
@@ -37,14 +37,14 @@ export const metadata: Metadata = {
     "Three.js",
   ],
   openGraph: {
-    title: "Hashim — Full-stack engineer",
+    title: "Hashim · Full-stack engineer",
     description:
-      "Full-stack engineer building AI-integrated tools that ship — LLM workflow automation, browser IDEs, real-time platforms.",
+      "Full-stack engineer building AI-integrated tools that ship: LLM workflow automation, browser IDEs, real-time platforms.",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Hashim — Full-stack engineer",
+    title: "Hashim · Full-stack engineer",
     description:
       "Full-stack engineer building AI-integrated tools that ship.",
   },
